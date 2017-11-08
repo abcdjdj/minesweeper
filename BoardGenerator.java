@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class BoardGenerator {
 
 	static void uncoverAll(Cell arr[][]) {
@@ -16,7 +18,7 @@ public class BoardGenerator {
 			arr[x][y].setCovered(false);
 			return;
 		}
-		
+
 		int i,j;
 		arr[x][y].setCovered(false);
 		arr[x][y].setTraversed(true);
@@ -29,21 +31,27 @@ public class BoardGenerator {
 
 	static Cell[][] generateBoard() {
 	        int rows, cols, i, j, m, n, count;
-	        double k;
 	        rows = Board.BOARD_ROWS;
 	        cols = Board.BOARD_COLS;
 	        Cell board[][] = new Cell[rows][cols];
 
-	        for (i = 0; i < rows; i++) {
-	            for (j = 0; j < cols; j++) {
-	                board[i][j] = new Cell();
-	                k = Math.random();
-	                if (k < 0.15) {
-	                    board[i][j].setCount(9); //9 = mine!!
+		Random random = new Random();
+		int totalMines = (int)(Board.PROBABILITY*rows*cols);
 
-	                }
-	            }
-	        }
+	        for (i = 0; i < rows; i++)
+	            for (j = 0; j < cols; j++)
+	                board[i][j] = new Cell();
+
+		while(totalMines > 0) {
+			i = random.nextInt(Board.BOARD_ROWS);
+			j = random.nextInt(Board.BOARD_COLS);
+			/* If board[i][j] has already been set as a mine, skip */
+			if(board[i][j].getCount()==9)
+				continue;
+			board[i][j].setCount(9); //9=mine!!
+			--totalMines;
+		}
+
 
 	        for (i = 0; i < rows; i++) {
 	            for (j = 0; j < cols; j++) {
