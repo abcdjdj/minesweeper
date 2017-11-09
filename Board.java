@@ -9,7 +9,8 @@ class Board extends JPanel implements BoardConstantsInterface
     private Image[] image;
     private int remainingMines;
     private boolean gameOver;
-    private JLabel status;
+    private JLabel status, timer;
+    private long startTime;
 
     public int getImageType(Cell cell) {
             if(gameOver) {
@@ -46,8 +47,39 @@ class Board extends JPanel implements BoardConstantsInterface
 
          gameOver = false;
          setLayout(new BorderLayout());
+
          status = new JLabel("New game started, Mine Count : " + remainingMines);
-         add(status, BorderLayout.SOUTH);
+         timer = new JLabel("Time Elapsed : ");
+         startTime = System.currentTimeMillis();
+         JPanel southPanel = new JPanel();
+         southPanel.setLayout(new BorderLayout());
+         southPanel.add(status, BorderLayout.NORTH);
+         southPanel.add(timer, BorderLayout.SOUTH);
+         add(southPanel, BorderLayout.SOUTH);
+
+         new Thread("Timer Thread") {
+                 @Override
+                 public void run() {
+                         while(!gameOver) {
+                                 long diff =  (System.currentTimeMillis()-startTime);
+                                 diff = diff/1000; //convert to seconds
+
+                                 String msg = "Time Elapsed : ";
+                                 if(diff/60 < 10)
+                                        msg+="0";
+                                 msg+= (diff)/60 + ":";
+                                 if(diff%60 < 10)
+                                        msg+="0";
+                                 msg+=(diff%60);
+                                 timer.setText(msg);
+                                 try{
+                                         Thread.sleep(1000);
+                                 } catch(InterruptedException ex) {}
+                                 southPanel.repaint();
+                         }
+                 }
+         }.start();
+
          addMouseListener(new BoardMouseAdapter());
      }
 
