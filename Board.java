@@ -77,6 +77,20 @@ class Board extends JPanel implements BoardConstantsInterface
                                  } catch(InterruptedException ex) {}
                                  southPanel.repaint();
                          }
+                         /* Blinking animation once game terminates */
+                         String gameOverMsg = timer.getText();
+                         while(gameOver) {
+                                 timer.setText("Time Elapsed : ");
+                                 southPanel.repaint();
+                                 try {
+                                         Thread.sleep(500);
+                                 } catch(InterruptedException ex) {}
+                                 timer.setText(gameOverMsg);
+                                 southPanel.repaint();
+                                 try {
+                                         Thread.sleep(500);
+                                 } catch(InterruptedException ex) {}
+                         }
                  }
          }.start();
 
@@ -87,7 +101,7 @@ class Board extends JPanel implements BoardConstantsInterface
      public void paintComponent(Graphics g)
       {
           super.paintComponent(g);
-          
+
           int i,j;
           int covered = 0;
           for(i=0;i<board.length; i++)
