@@ -11,7 +11,7 @@ public class BoardFrame extends JFrame {
         BoardFrame(String title) {
                 super(title);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                setSize(270, 330);
+                setSize(250, 360);
 
                 add(new MenuPanel(this), BorderLayout.NORTH);
                 boardPanel = new Board();
