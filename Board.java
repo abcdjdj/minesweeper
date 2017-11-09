@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/* A class that represents everything related to the current instance
+ * of the game. Cells are directly drawn on the canvas of this JPanel.
+ * Also contains a sub panel for the status and timer label */
 class Board extends JPanel implements BoardConstantsInterface
 {
 
@@ -12,6 +15,7 @@ class Board extends JPanel implements BoardConstantsInterface
     private JLabel status, timer;
     private long startTime;
 
+    /* Returns the index number of the image to be loaded */
     public int getImageType(Cell cell) {
             if(gameOver) {
                     if(cell.isFlagged()) {
@@ -39,6 +43,7 @@ class Board extends JPanel implements BoardConstantsInterface
                 for(Cell j : i)
                         remainingMines += (j.isMine())?1:0;
 
+         /* Initialize array of Images */
          image = new Image[IMAGES_NUMBER];
          for(int i= 0;i<IMAGES_NUMBER;i++) {
              String path = "img/j" + i + ".gif";
@@ -115,6 +120,8 @@ class Board extends JPanel implements BoardConstantsInterface
                   g.drawImage(image[img_index], j*CELL_SIZE, i*CELL_SIZE, this);
               }
           }
+
+          /* Game winning logic */
           if(covered==0 && remainingMines==0) {
                   /* At this stage, game can still be lost!!
                   *  Check if everything has been marked properly */
@@ -142,16 +149,21 @@ class Board extends JPanel implements BoardConstantsInterface
                       int row = e.getY() / CELL_SIZE;
                       int col = e.getX() / CELL_SIZE;
 
+                      /* If index out of bounds or game has terminated,
+                       * do nothing */
                       if(row >= BOARD_ROWS || col >= BOARD_COLS || gameOver) {
                               return;
                       }
                       Cell cell = board[row][col];
 
                       if(SwingUtilities.isRightMouseButton(e)) {
-                              /* If cell is uncovered, do nothing */
+                              /* If cell is uncovered, do nothing
+                               * NOTE:- A flagged cell is always uncovered
+                               * Hence make sure that it is not flagged */
                               if(!cell.isCovered() && !cell.isFlagged())
                                       return;
 
+                              /* Toggle flagged field of cell */
                               if(!cell.isFlagged()) {
                                       cell.setFlagged(true);
                                       cell.setCovered(false);

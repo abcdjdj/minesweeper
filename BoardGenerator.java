@@ -1,5 +1,7 @@
 import java.util.Random;
 
+/* BoardGenerator class contains all UI-independept logic. All functions
+ * of this class strictly operate on Cell objects/arrays only! */
 public class BoardGenerator {
 
 	static void uncoverAll(Cell arr[][]) {
@@ -29,6 +31,9 @@ public class BoardGenerator {
 		}
 	}
 
+	/* Returns a 2D array of Cell objects. Total number of mines is decided
+	 * by the Board.PROBABILITY constant. Index locations of mines are
+	 * randomly alloted */
 	static Cell[][] generateBoard() {
 	        int rows, cols, i, j, m, n, count;
 	        rows = Board.BOARD_ROWS;

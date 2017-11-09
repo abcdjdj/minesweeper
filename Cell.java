@@ -1,3 +1,4 @@
+/* Represents a single cell on the board */
 class Cell
 {
     private boolean flagged, covered;

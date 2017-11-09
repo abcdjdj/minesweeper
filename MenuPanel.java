@@ -3,8 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
+/* MenuPanel is the panel that contains two buttons - New Game and Help
+ * It exists in the North region of the BoardFrame. Also responsible for
+ * reading the contents of rules.txt */
 public class MenuPanel extends JPanel {
         private JButton newGame, help;
+        /* Save a reference to the BoardFrame object,
+         * so that newGame() can be called from here */
         private BoardFrame frame;
         private String helpMsg;
 
@@ -16,11 +21,11 @@ public class MenuPanel extends JPanel {
 
                 help = new JButton("Help");
                 help.addActionListener(ml);
-                
+
                 add(newGame);
                 add(help);
 
-                new Thread() {
+                new Thread("Rules Thread") {
                         @Override
                         public void run() {
                                 helpMsg="";

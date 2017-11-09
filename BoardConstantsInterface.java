@@ -1,3 +1,4 @@
+/* Interface for all constants */
 interface BoardConstantsInterface {
         public static final int BOARD_ROWS = 5;//16;
         public static final int BOARD_COLS = 5;//16;
