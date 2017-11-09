@@ -25,9 +25,9 @@ public class BoardFrame extends JFrame {
          * from our BoardFrame, creating a new Board() object and adding it
          * back to our BoardFrame */
         public void newGame() {
-                getContentPane().remove(boardPanel);
+                remove(boardPanel);
                 boardPanel = new Board();
-                getContentPane().add(boardPanel);
+                add(boardPanel);
                 revalidate();
                 repaint();
         }
