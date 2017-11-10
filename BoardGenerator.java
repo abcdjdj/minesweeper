@@ -14,7 +14,7 @@ public class BoardGenerator {
 		/* Base cases */
 		if(x < 0 || x >= Board.BOARD_ROWS || y < 0 || y >= Board.BOARD_COLS)
 			return;
-		if(arr[x][y].beenTraversed())
+		if(arr[x][y].beenTraversed() || arr[x][y].isFlagged())
 			return;
 		if(arr[x][y].getCount()!=0) {
 			arr[x][y].setCovered(false);
