@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.imageio.*;
+import java.io.*;
 
 /* A class that represents everything related to the current instance
  * of the game. Cells are directly drawn on the canvas of this JPanel.
@@ -47,7 +49,9 @@ class Board extends JPanel implements BoardConstantsInterface
          image = new Image[IMAGES_NUMBER];
          for(int i= 0;i<IMAGES_NUMBER;i++) {
              String path = "img/j" + i + ".gif";
-             image[i] = new ImageIcon(path).getImage();
+             try {
+                     image[i] = ImageIO.read(new File(path));
+             } catch(IOException ex) {}
          }
 
          gameOver = false;
