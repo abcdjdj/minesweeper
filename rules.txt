@@ -1,12 +1,10 @@
-svsfvsfv
-A squares "neighbours" are the squares adjacent above, below, left, right, and all 4 diagonals. 
-Squares on the sides of the board or in a corner have fewer neighbors. The board does not wrap around the edges.
-If you open a square with 0 neighboring bombs, all its neighbors will automatically open. This can cause a large area to automatically open.
-To remove a bomb marker from a square, point at it and right-click again.
-The first square you open is never a bomb.
-If you mark a bomb incorrectly, you will have to correct the mistake before you can win. 
-Incorrect bomb marking doesn't kill you, but it can lead to mistakes which do.
-You don't have to mark all the bombs to win; you just need to open all non-bomb squares.
-Right-clicking twice will give you a question mark symbol which can be useful if you are unsure about a square
-Click the yellow happy face to start a new game.
-
+1. The board is a two-dimensional space, which has a predetermined number of mines. 
+2. Cells have two states, opened and closed. 
+3. If you left-click on a closed cell: 
+      1. Cell is empty and opened.
+            1. If neighbor cell(s) have mine(s), this opened cell shows neighbor mine count. 
+            2. If neighbor cells have no mines, all neighbor cells are opened automatically (recursively).
+      2. Cell has a mine, game ends with FAIL. 
+4. If you right-click on a closed cell, you put a flag which shows that "I know this cell has a mine".  
+   Right clicking on a flagged cell again will remove the flag.
+5. If all cells (without mines) are opened using left clicks and all mines are marked with a flag, game ends with SUCCESS. 
